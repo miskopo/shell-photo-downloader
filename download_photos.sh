@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Check for requirements
+[[ -z $(command -v rsync) ]] && { echo "rsync required" >&2; exit 1; }
+[[ -z $(command -v rsync) ]] && { echo "exiftool required" >&2; exit 1; }
+
 # Define camera manufacturer
 CAMERA_MODEL="NIKON D7200"
 # Define target base directory
