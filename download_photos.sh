@@ -47,13 +47,14 @@ for FILE in $(ls); do
 	echo "Copying $FILE to $FULL_TARGET_PATH"
 		if [[ ${FILE: -4} == ".JPG" ]]; then
 			mkdir -p "$FULL_TARGET_PATH/JPG" && 
-			rsync -ahqu --progress ${FILE} "$FULL_TARGET_PATH/JPG"||
-			echo "Error copying $FILE to $FULL_TARGET_PATH/JPG";
+			rsync -ahqu --progress ${FILE} "$FULL_TARGET_PATH/JPG" || 
+			{ echo "Error copying $FILE to $FULL_TARGET_PATH/JPG"; 
+			((++ERROR_COUNT));	}
 		else
 			mkdir -p "$FULL_TARGET_PATH" && 
-			rsync -ahqu --progress ${FILE} "$FULL_TARGET_PATH"||
-			echo "${RED}Error copying $FILE to $FULL_TARGET_PATH${NC}";
-            ((++ERROR_COUNT));
+			rsync -ahqu --progress ${FILE} "$FULL_TARGET_PATH" ||
+			{ echo "${RED}Error copying $FILE to $FULL_TARGET_PATH${NC}";
+			((++ERROR_COUNT)); }
         fi
 	done;
 
